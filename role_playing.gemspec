@@ -8,8 +8,8 @@ Gem::Specification.new do |gem|
   gem.version       = RolePlaying::VERSION
   gem.authors       = ["John Axel Eriksson"]
   gem.email         = ["john@insane.se"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = %q{A ruby DCI implementation}
+  gem.summary       = %q{A ruby DCI implementation}
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($/)
