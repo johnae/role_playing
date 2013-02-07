@@ -75,6 +75,13 @@ describe RolePlaying do
       subject.role_player.should_not respond_to(:two_fields)
     end
 
+    it "#in_role takes a block and returns the result" do
+      two_fields = bare_object.in_role(MyRole) do |role|
+        role.two_fields
+      end
+      two_fields.should == "#{bare_object.field_1} #{bare_object.field_2}"
+    end
+
   end
 
   context MoneyTransfer do

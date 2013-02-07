@@ -24,8 +24,7 @@ end
 class Object
   def in_roles(*roles, &block)
     extended = roles.inject(self) { |extended, role| role.new(extended) }
-    extended.instance_eval(&block) if block_given?
-    extended
+    block_given? ? yield(extended) : extended
   end
   def in_role(role, &block)
     in_roles(*role, &block)
