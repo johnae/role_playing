@@ -59,6 +59,14 @@ Please read the specs for a better understanding. Also please look up DCI (data,
 Theres an Rspec extension included which basically aliases Rspecs context to role so the language used in Rspec can be closer to DCI when testing these things.
 To use that extension just do require 'role_playing/rspec_role' in your spec_helper. Look at the specs in this gem to see what I mean.
 
+## Links
+
+http://dci-in-ruby.info
+http://www.clean-ruby.com
+http://tonyarcieri.com/dci-in-ruby-is-completely-broken - on why extend is bad
+http://rubysource.com/dci-the-evolution-of-the-object-oriented-paradigm/
+http://vimeo.com/8235394 - the inventor himself talks about DCI
+
 ## Contributing
 
 1. Fork it
