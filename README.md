@@ -29,27 +29,29 @@ Or install it yourself as:
 
 Using it is as simple as defining (usually) a context like so:
 
-    class MyUseCase
-      def initialize(something, something_else)
-        @something = something
-        @something_else = something_else
+    class MoneyTransfer
+      def initialize(from_account, to_account)
+        @from_account = from_account
+        @to_account = to_account
       end
-
-      def call(an_arg)
-        @something_else.in_role(Role2).special_method @something.in_role(Role1).additional_method
+      def call(amount)
+        withdrawal = @from_account.in_role(SourceAccount).withdraw(amount)
+        @to_account.in_role(DestinationAccount).deposit(withdrawal)
       end
-
-      class Role1 < RolePlaying::Role
-        def additional_method
-          1
+    
+      class SourceAccount < RolePlaying::Role
+        def withdraw(amount)
+          self.amount=self.amount-amount
+          amount
         end
       end
-
-      class Role2 < RolePlaying::Role
-        def special_method(value)
-          puts value
+    
+      class DestinationAccount < RolePlaying::Role
+        def deposit(amount)
+          self.amount=self.amount+amount
         end
       end
+    
     end
 
 Please read the specs for a better understanding. Also please look up DCI (data, context, interaction) for a better understanding of what this is trying to accomplish.
