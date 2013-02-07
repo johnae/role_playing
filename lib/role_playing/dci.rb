@@ -2,9 +2,6 @@ require 'delegate'
 
 module RolePlaying
   class Role < SimpleDelegator
-    #def name
-    #  role_player.name
-    #end
     def class
       role_player.class ## this makes self.class return the extended objects class instead of DCIRole - should make the extension completely transparent
     end
