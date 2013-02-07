@@ -62,10 +62,15 @@ To use that extension just do require 'role_playing/rspec_role' in your spec_hel
 ## Links
 
 http://dci-in-ruby.info
+
 http://www.clean-ruby.com
+
 http://tonyarcieri.com/dci-in-ruby-is-completely-broken - on why extend is bad
+
 http://rubysource.com/dci-the-evolution-of-the-object-oriented-paradigm/
+
 http://vimeo.com/8235394 - the inventor himself talks about DCI
+
 
 ## Contributing
 
