@@ -10,3 +10,10 @@ class Object
     in_roles(*role, &block)
   end
 end
+
+class Array
+  def played_by(object)
+    extended = self.inject(object) { |extended, role| role.new(extended) }
+    block_given? ? yield(extended) : extended
+  end
+end
