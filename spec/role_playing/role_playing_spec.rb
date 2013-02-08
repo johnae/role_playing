@@ -79,12 +79,40 @@ describe RolePlaying do
     end
 
     it "#in_role takes a block and returns the result" do
-      two_fields = bare_object.in_role(MyRole) do |role|
+      two_fields = MyRole.played_by(bare_object) do |role|
         role.two_fields
       end
       two_fields.should == "#{bare_object.field_1} #{bare_object.field_2}"
     end
 
+  end
+
+  context "playing roles" do
+    let(:role_class_1) do
+      Class.new(RolePlaying::Role) do
+        def role_1
+        end
+      end
+    end
+    let(:role_class_2) do
+      Class.new(RolePlaying::Role) do
+        def role_2
+        end
+      end
+    end
+    let(:player_class) do
+      Class.new do
+        def base
+        end
+      end
+    end
+
+    it "an array of roles can be applied using Array#played_by" do
+      role = [role_class_1, role_class_2].played_by(player_class.new)
+      role.should respond_to(:role_1)
+      role.should respond_to(:role_2)
+      role.should respond_to(:base)
+    end
   end
 
   context MoneyTransferring do

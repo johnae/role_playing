@@ -4,9 +4,9 @@ module RolePlaying
   class Role < SimpleDelegator
 
     class << self
-      def played_by(object, &block)
-        extended = new(object)
-        block_given? ? yield(extended) : extended
+      def played_by(object)
+        role = new(object)
+        block_given? ? yield(role) : role
       end
     end
 
