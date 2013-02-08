@@ -101,9 +101,9 @@ Within a context a role is defined by the role class method. The syntax sugar of
 
 Please read the specs for a better understanding. Also please look up DCI (data, context, interaction) for a better understanding of what this is trying to accomplish.
 
-## Rspec
+## RSpec
 
-Theres an Rspec extension included which basically aliases Rspecs context to role so the language used in Rspec can be closer to DCI when testing these things.
+Theres an RSpec extension included which basically aliases RSpecs context to role so the language used in RSpec can be closer to DCI when testing these things.
 To use that extension just do require 'role_playing/rspec_role' in your spec_helper. Look at the specs in this gem to see what I mean.
 
 ## Rails
