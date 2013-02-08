@@ -36,15 +36,18 @@ class MoneyTransferring
   end
 
   ## inside a context, a role can be defined
-  ## using the class method "role"
-  role :source_account do
+  ## using the class method "role", it's basically
+  ## the same as using class SourceAccount < RolePlaying::Role
+  ## but a nicer language and does the inheritance for us and -
+  ## YES these should be constants, not strings or symbols
+  role SourceAccount do
     def withdraw(amount)
       self.amount=self.amount-amount
       amount
     end
   end
 
-  role :destination_account do
+  role DestinationAccount do
     def deposit(amount)
       self.amount=self.amount+amount
     end
