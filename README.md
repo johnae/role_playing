@@ -82,6 +82,22 @@ Please read the specs for a better understanding. Also please look up DCI (data,
 Theres an Rspec extension included which basically aliases Rspecs context to role so the language used in Rspec can be closer to DCI when testing these things.
 To use that extension just do require 'role_playing/rspec_role' in your spec_helper. Look at the specs in this gem to see what I mean.
 
+## Rails
+
+Theres a Railtie that adds autoloading of directory "contexts", the idea is to put all contexts and roles in there (roles are defined within the surrounding
+context in the same file).
+
+The structure would look like:
+
+    app/
+        assets/
+    ->  contexts/
+        controllers/
+        helpers/
+        models/
+        ...
+
+
 ## Links
 
 http://dci-in-ruby.info
