@@ -29,7 +29,9 @@ Or install it yourself as:
 
 Using it is as simple as defining (usually) a context like so:
 
-    class MoneyTransfer
+    class MoneyTransferring
+      include RolePlaying::Context
+    
       def initialize(from_account, to_account)
         @from_account = from_account
         @to_account = to_account
@@ -39,18 +41,36 @@ Using it is as simple as defining (usually) a context like so:
         @to_account.in_role(DestinationAccount).deposit(withdrawal)
       end
     
-      class SourceAccount < RolePlaying::Role
+      ## inside a context, a role can be defined
+      ## using the class method "role"
+      role :source_account do
         def withdraw(amount)
           self.amount=self.amount-amount
           amount
         end
       end
     
-      class DestinationAccount < RolePlaying::Role
+      ## the #role method comes from including
+      ## the RolePlaying::Context module
+      role :destination_account do
         def deposit(amount)
           self.amount=self.amount+amount
         end
       end
+    
+      ## roles can be defined as classes too of course
+      #class SourceAccount < RolePlaying::Role
+      #  def withdraw(amount)
+      #    self.amount=self.amount-amount
+      #    amount
+      #  end
+      #end
+    
+      #class DestinationAccount < RolePlaying::Role
+      #  def deposit(amount)
+      #    self.amount=self.amount+amount
+      #  end
+      #end
     
     end
 

@@ -19,4 +19,6 @@ Gem::Specification.new do |gem|
 
   gem.add_development_dependency("rspec", ">= 2.12.0")
   gem.add_development_dependency("bundler", "~> 1.2.0")
+
+  gem.add_dependency("activesupport", ">= 3.0.0")
 end
