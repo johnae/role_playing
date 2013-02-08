@@ -107,7 +107,7 @@ describe RolePlaying do
 
   context MoneyTransferring do
 
-    role :source_account do
+    role MoneyTransferring::SourceAccount do
       let(:original_amount) { 50 }
       let(:bare_account) {Account.new(original_amount)}
       subject { MoneyTransferring::SourceAccount.new(bare_account) }
@@ -122,7 +122,7 @@ describe RolePlaying do
       end
     end
 
-    role :destination_account do
+    role MoneyTransferring::DestinationAccount do
       let(:original_amount) { 50 }
       let(:bare_account) {Account.new(original_amount)}
       subject { MoneyTransferring::DestinationAccount.new(bare_account) }
