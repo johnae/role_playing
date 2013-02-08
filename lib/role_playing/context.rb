@@ -4,10 +4,13 @@ module RolePlaying
       base.extend(ClassMethods)
     end
     module ClassMethods
+      def const_missing(sym)
+        class_name = sym.to_s
+      end
       def role(name, parent=nil, &block)
         parent = parent || RolePlaying::Role
         klass = Class.new(parent, &block)
-        self.const_set name.to_s.camelize, klass
+        const_set name, klass
       end
     end
   end
