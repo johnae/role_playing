@@ -31,7 +31,7 @@ class MoneyTransferring
     @to_account = to_account
   end
   def call(amount)
-    withdrawal = SourceAccount(@from_account) do |source_account|
+    SourceAccount(@from_account) do |source_account|
       DestinationAccount(@to_account).deposit(source_account.withdraw(amount))
     end
   end
