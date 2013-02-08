@@ -22,8 +22,10 @@ class MyRole < RolePlaying::Role
   end
 end
 
-## a context
-class MoneyTransfer
+## a context/use case
+class MoneyTransferring
+  include RolePlaying::Context
+
   def initialize(from_account, to_account)
     @from_account = from_account
     @to_account = to_account
@@ -33,18 +35,34 @@ class MoneyTransfer
     @to_account.in_role(DestinationAccount).deposit(withdrawal)
   end
 
-  class SourceAccount < RolePlaying::Role
+  ## inside a context, a role can be defined
+  ## using the class method "role"
+  role :source_account do
     def withdraw(amount)
       self.amount=self.amount-amount
       amount
     end
   end
 
-  class DestinationAccount < RolePlaying::Role
+  role :destination_account do
     def deposit(amount)
       self.amount=self.amount+amount
     end
   end
+
+  ## roles can be defined as classes too of course
+  #class SourceAccount < RolePlaying::Role
+  #  def withdraw(amount)
+  #    self.amount=self.amount-amount
+  #    amount
+  #  end
+  #end
+
+  #class DestinationAccount < RolePlaying::Role
+  #  def deposit(amount)
+  #    self.amount=self.amount+amount
+  #  end
+  #end
 
 end
 
@@ -84,12 +102,12 @@ describe RolePlaying do
 
   end
 
-  context MoneyTransfer do
+  context MoneyTransferring do
 
-    role MoneyTransfer::SourceAccount do
+    role :source_account do
       let(:original_amount) { 50 }
       let(:bare_account) {Account.new(original_amount)}
-      subject { MoneyTransfer::SourceAccount.new(bare_account) }
+      subject { MoneyTransferring::SourceAccount.new(bare_account) }
       it "adds a withdraw method to data object" do
         bare_account.should_not respond_to(:withdraw)
         subject.should respond_to(:withdraw)
@@ -101,10 +119,10 @@ describe RolePlaying do
       end
     end
 
-    role MoneyTransfer::DestinationAccount do
+    role :destination_account do
       let(:original_amount) { 50 }
       let(:bare_account) {Account.new(original_amount)}
-      subject { MoneyTransfer::DestinationAccount.new(bare_account) }
+      subject { MoneyTransferring::DestinationAccount.new(bare_account) }
       it "adds a deposit method to data object" do
         bare_account.should_not respond_to(:deposit)
         subject.should respond_to(:deposit)
@@ -121,7 +139,7 @@ describe RolePlaying do
     let(:source_account) { Account.new(original_source_account_amount) }
     let(:destination_account) { Account.new(original_destination_account_amount) }
     let(:transfer_amount) { 50 }
-    subject { MoneyTransfer.new(source_account, destination_account) }
+    subject { MoneyTransferring.new(source_account, destination_account) }
 
     it "transfers a specified amount from a SourceAccount to a DestinationAccount" do
       source_account.amount.should == original_source_account_amount
