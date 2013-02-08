@@ -5,11 +5,15 @@ module RolePlaying
     end
     module ClassMethods
       def const_missing(sym)
-        class_name = sym.to_s
+        sym
       end
       def role(name, parent=nil, &block)
         parent = parent || RolePlaying::Role
         klass = Class.new(parent, &block)
+        define_method(name) do |object, &role_block|
+          instance = klass.new(object)
+          role_block.nil? ? instance : role_block.call(instance)
+        end
         const_set name, klass
       end
     end

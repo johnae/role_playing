@@ -2,6 +2,14 @@ require 'delegate'
 
 module RolePlaying
   class Role < SimpleDelegator
+
+    class << self
+      def played_by(object, &block)
+        extended = new(object)
+        block_given? ? yield(extended) : extended
+      end
+    end
+
     def class
       role_player.class ## this makes self.class return the extended objects class instead of DCIRole - should make the extension completely transparent
     end
