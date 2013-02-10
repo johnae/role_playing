@@ -37,6 +37,10 @@ Using it is as simple as defining (usually) a context like so:
         @to_account = to_account
       end
       def call(amount)
+        ## this is a little contrived I know
+        ## it could be easily implemented using
+        ## increment/decrement methods - just
+        ## showing the block syntax here
         SourceAccount(@from_account) do |source_account|
           DestinationAccount(@to_account).deposit(source_account.withdraw(amount))
         end
