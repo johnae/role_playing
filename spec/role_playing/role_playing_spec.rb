@@ -36,14 +36,14 @@ class MoneyTransferring
     end
   end
 
-  role SourceAccount do
+  role :SourceAccount do
     def withdraw(amount)
       self.amount=self.amount-amount
       amount
     end
   end
 
-  role DestinationAccount do
+  role :DestinationAccount do
     def deposit(amount)
       self.amount=self.amount+amount
     end
