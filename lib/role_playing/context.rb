@@ -14,8 +14,8 @@ module RolePlaying
       def role(name, parent=nil, &block)
         parent = parent || RolePlaying::Role
         klass = Class.new(parent, &block)
-        define_method(name) do |object, &role_block|
-          instance = klass.new(object)
+        define_method(name) do |*args, &role_block|
+          instance = klass.new(*args)
           role_block.nil? ? instance : role_block.call(instance)
         end
         const_set name, klass
