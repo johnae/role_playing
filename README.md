@@ -15,7 +15,9 @@ A further comment on 2 is that it means EVERY time you call extend it blows Ruby
 
 Add this line to your application's Gemfile:
 
-    gem 'role_playing'
+```ruby
+gem 'role_playing'
+```
 
 And then execute:
 
@@ -29,77 +31,89 @@ Or install it yourself as:
 
 Using it is as simple as defining (usually) a context like so:
 
-    class MoneyTransferring
-      include RolePlaying::Context
-    
-      def initialize(from_account, to_account)
-        @from_account = from_account
-        @to_account = to_account
-      end
-      def call(amount)
-        ## this is a little contrived I know
-        ## it could be easily implemented using
-        ## increment/decrement methods - just
-        ## showing the block syntax here
-        SourceAccount(@from_account) do |source_account|
-          DestinationAccount(@to_account).deposit(source_account.withdraw(amount))
-        end
-      end
-    
-      role :SourceAccount do
-        def withdraw(amount)
-          self.amount=self.amount-amount
-          amount
-        end
-      end
-    
-      role :DestinationAccount do
-        def deposit(amount)
-          self.amount=self.amount+amount
-        end
-      end
-    
+```ruby
+class MoneyTransferring
+  include RolePlaying::Context
+
+  def initialize(from_account, to_account)
+    @from_account = from_account
+    @to_account = to_account
+  end
+  def call(amount)
+    ## this is a little contrived I know
+    ## it could be easily implemented using
+    ## increment/decrement methods - just
+    ## showing the block syntax here
+    SourceAccount(@from_account) do |source_account|
+      DestinationAccount(@to_account).deposit(source_account.withdraw(amount))
     end
+  end
+
+  role :SourceAccount do
+    def withdraw(amount)
+      self.amount=self.amount-amount
+      amount
+    end
+  end
+
+  role :DestinationAccount do
+    def deposit(amount)
+      self.amount=self.amount+amount
+    end
+  end
+
+end
+```
 
 Basically a role is a class inheriting from RolePlayer::Role, roles can also be defined by themselves(outside a context) like this:
 
-    class MyRole < RolePlayer::Role
-      def my_additional_method
-      end
-    end
-    
-    class MyOtherRole < RolePlayer::Role
-      def my_other_method
-      end
-    end
+```ruby
+class MyRole < RolePlayer::Role
+  def my_additional_method
+  end
+end
+
+class MyOtherRole < RolePlayer::Role
+  def my_other_method
+  end
+end
+```
 
 And, if defined by themselves, they can be applied in a few ways:
 
-    ## our data object which will play different roles (eg. get new/different behavior within a context)
-    class MyDataObject
-    end
-    
-    MyRole.played_by(MyDataObject) do |role|
-      role.my_additional_method
-    end
+```ruby
+## our data object which will play different roles (eg. get new/different behavior within a context)
+class MyDataObject
+end
+
+MyRole.played_by(MyDataObject) do |role|
+  role.my_additional_method
+end
+```
 
 or
 
-    role = MyRole.played_by(MyDataObject)
-    role.my_additional_method
+```ruby
+role = MyRole.played_by(MyDataObject)
+role.my_additional_method
+```
 
 several roles can be applied too like so:
 
-    [MyRole, MyOtherRole].played_by(MyDataObject) do |role|
-      role.my_additional_method
-      role.my_other_method
-    end
+```ruby
+[MyRole, MyOtherRole].played_by(MyDataObject) do |role|
+  role.my_additional_method
+  role.my_other_method
+end
+```
 
 or
 
-    role = [MyRole, MyOtherRole].played_by(MyDataObject)
-    role.my_additional_method
-    role.my_other_method
+```ruby
+role = [MyRole, MyOtherRole].played_by(MyDataObject)
+role.my_additional_method
+role.my_other_method
+```
 
 Within a context a role is defined by the role class method. The syntax sugar of applying a role - eg. MyRole(MyDataObject) do |role| - is only available within classes including the RolePlayer::Context module. This was the way I envisioned it - to basically keep all code concerning a context within the same file (and inside the context class).
 
