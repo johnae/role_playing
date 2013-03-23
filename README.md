@@ -70,12 +70,12 @@ end
     class MyOtherRole < RolePlaying::Role
 
 ```ruby
-class MyRole < RolePlayer::Role
+class MyRole < RolePlaying::Role
   def my_additional_method
   end
 end
 
-class MyOtherRole < RolePlayer::Role
+class MyOtherRole < RolePlaying::Role
   def my_other_method
   end
 end
