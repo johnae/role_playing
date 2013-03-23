@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/johnae/role_playing.png)](https://travis-ci.org/johnae/role_playing)
+
 # RolePlaying
 
 A ruby DCI implementation using SimpleDelegator. This was extracted from a Rails app I'm working on. It's a very simple and straightforward implementation.
@@ -65,7 +67,7 @@ class MoneyTransferring
 end
 ```
 
-Basically a role is a class inheriting from RolePlayer::Role, roles can also be defined by themselves(outside a context) like this:
+    class MyOtherRole < RolePlaying::Role
 
 ```ruby
 class MyRole < RolePlayer::Role
@@ -115,7 +117,7 @@ role.my_additional_method
 role.my_other_method
 ```
 
-Within a context a role is defined by the role class method. The syntax sugar of applying a role - eg. MyRole(MyDataObject) do |role| - is only available within classes including the RolePlayer::Context module. This was the way I envisioned it - to basically keep all code concerning a context within the same file (and inside the context class).
+Within a context a role is defined by the role class method. The syntax sugar of applying a role - eg. MyRole(MyDataObject) do |role| - is only available within classes including the RolePlaying::Context module. This was the way I envisioned it - to basically keep all code concerning a context within the same file (and inside the context class).
 
 Please read the specs for a better understanding. Also please look up DCI (data, context, interaction) for a better understanding of what this is trying to accomplish.
 
