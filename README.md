@@ -67,6 +67,8 @@ class MoneyTransferring
 end
 ```
 
+Or roles by themselves like so:
+
 ```ruby
 class MyRole < RolePlaying::Role
   def my_additional_method
@@ -121,7 +123,7 @@ Please read the specs for a better understanding. Also please look up DCI (data,
 
 ## RSpec
 
-Theres an RSpec extension included which basically aliases RSpecs context to role so the language used in RSpec can be closer to DCI when testing these things.
+There's an RSpec extension included which basically aliases RSpecs context to role so the language used in RSpec can be closer to DCI when testing these things.
 To use that extension just do require 'role_playing/rspec_role' in your spec_helper. Look at the specs in this gem to see what I mean.
 
 ## Rails
