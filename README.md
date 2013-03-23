@@ -67,8 +67,6 @@ class MoneyTransferring
 end
 ```
 
-    class MyOtherRole < RolePlaying::Role
-
 ```ruby
 class MyRole < RolePlaying::Role
   def my_additional_method
