@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/johnae/role_playing.png)](https://travis-ci.org/johnae/role_playing)
+
 # RolePlaying
 
 A ruby DCI implementation using SimpleDelegator. This was extracted from a Rails app I'm working on. It's a very simple and straightforward implementation.
