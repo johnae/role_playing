@@ -4,7 +4,7 @@ module RolePlaying
       base.extend(ClassMethods)
     end
     module ClassMethods
-      ## this seemed to dangerous to use
+      ## this seemed too dangerous to use
       ## it enabled us to use Constants when
       ## defining roles but would also not
       ## warn about missing constants - which is pretty bad
