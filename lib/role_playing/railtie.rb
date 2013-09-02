@@ -5,7 +5,7 @@ module RolePlaying
     
     config.after_initialize do |app|
       ## this seems necessary
-      Dir["#{config.root}/app/contexts/*"].each do |ctx|
+      Dir["#{Rails.root}/app/contexts/*"].each do |ctx|
          require_dependency ctx
       end
     end
