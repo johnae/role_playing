@@ -20,10 +20,4 @@ RSpec.configure do |config|
 
   config.mock_with :rspec
 
-  ## perhaps this should be removed as well
-  ## and done in Rakefile?
-  config.color_enabled = true
-  ## dont do this, do it in Rakefile instead
-  #config.formatter = 'd'
-
 end

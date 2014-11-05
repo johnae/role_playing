@@ -59,30 +59,30 @@ describe RolePlaying do
     subject { MyRole.new(bare_object) }
 
     it "should be of same class as wrapped object" do
-      subject.class.should == bare_object.class
+      expect(subject.class).to eq bare_object.class
     end
 
     it "should be equal to wrapped object" do
-      subject.should == bare_object
+      expect(subject).to eq bare_object
     end
 
     it "should respond_to additional methods" do
-      subject.should respond_to(:two_fields)
+      expect(subject).to respond_to(:two_fields)
     end
 
     it "#two_fields should concatenate data objects two fields" do
-      subject.two_fields.should == "#{bare_object.field_1} #{bare_object.field_2}"
+      expect(subject.two_fields).to eq "#{bare_object.field_1} #{bare_object.field_2}"
     end
 
     it "#role_player should not respond_to additional methods" do
-      subject.role_player.should_not respond_to(:two_fields)
+      expect(subject.role_player).to_not respond_to(:two_fields)
     end
 
     it "#in_role takes a block and returns the result" do
       two_fields = MyRole.played_by(bare_object) do |role|
         role.two_fields
       end
-      two_fields.should == "#{bare_object.field_1} #{bare_object.field_2}"
+      expect(two_fields).to eq "#{bare_object.field_1} #{bare_object.field_2}"
     end
 
   end
@@ -109,9 +109,9 @@ describe RolePlaying do
 
     it "an array of roles can be applied using Array#played_by" do
       role = [role_class_1, role_class_2].played_by(player_class.new)
-      role.should respond_to(:role_1)
-      role.should respond_to(:role_2)
-      role.should respond_to(:base)
+      expect(role).to respond_to(:role_1)
+      expect(role).to respond_to(:role_2)
+      expect(role).to respond_to(:base)
     end
   end
 
@@ -122,13 +122,13 @@ describe RolePlaying do
       let(:bare_account) {Account.new(original_amount)}
       subject { MoneyTransferring::SourceAccount.new(bare_account) }
       it "adds a withdraw method to data object" do
-        bare_account.should_not respond_to(:withdraw)
-        subject.should respond_to(:withdraw)
+        expect(bare_account).to_not respond_to(:withdraw)
+        expect(subject).to respond_to(:withdraw)
       end
       it "withdraws a specified amount" do
         subject.withdraw(10)
-        subject.amount.should == original_amount-10
-        bare_account.amount.should == original_amount-10
+        expect(subject.amount).to eq original_amount-10
+        expect(bare_account.amount).to eq original_amount-10
       end
     end
 
@@ -137,13 +137,13 @@ describe RolePlaying do
       let(:bare_account) {Account.new(original_amount)}
       subject { MoneyTransferring::DestinationAccount.new(bare_account) }
       it "adds a deposit method to data object" do
-        bare_account.should_not respond_to(:deposit)
-        subject.should respond_to(:deposit)
+        expect(bare_account).to_not respond_to(:deposit)
+        expect(subject).to respond_to(:deposit)
       end
       it "deposits a specified amount" do
         subject.deposit(10)
-        subject.amount.should == original_amount+10
-        bare_account.amount.should == original_amount+10
+        expect(subject.amount).to eq original_amount+10
+        expect(bare_account.amount).to eq original_amount+10
       end
     end
 
@@ -155,11 +155,11 @@ describe RolePlaying do
     subject { MoneyTransferring.new(source_account, destination_account) }
 
     it "transfers a specified amount from a SourceAccount to a DestinationAccount" do
-      source_account.amount.should == original_source_account_amount
-      destination_account.amount.should == original_destination_account_amount
+      expect(source_account.amount).to eq original_source_account_amount
+      expect(destination_account.amount).to eq original_destination_account_amount
       subject.call(transfer_amount)
-      source_account.amount.should == original_source_account_amount-transfer_amount
-      destination_account.amount.should == original_destination_account_amount+transfer_amount
+      expect(source_account.amount).to eq original_source_account_amount-transfer_amount
+      expect(destination_account.amount).to eq original_destination_account_amount+transfer_amount
     end
 
   end
